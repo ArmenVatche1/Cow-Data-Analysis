@@ -1,0 +1,40 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.api
+    container_name: cow_api
+    ports:
+      - "8000:8000"
+    volumes:
+      - cow_db:/app
+    environment:
+      - PYTHONPATH=/app
+
+  dashboard:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.dashboard
+    container_name: cow_dashboard
+    ports:
+      - "8501:8501"
+    depends_on:
+      - api
+    environment:
+      - API_BASE=http://api:8000
+
+  seed:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.api
+    container_name: cow_seed
+    depends_on:
+      - api
+    volumes:
+      - cow_db:/app
+    environment:
+      - PYTHONPATH=/app
+    command: ["python", "data/seed.py"]
+
+volumes:
+  cow_db:

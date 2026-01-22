@@ -1,0 +1,9 @@
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+sqlalchemy==2.0.34
+pydantic==2.9.2
+python-dateutil==2.9.0.post0
+pandas==2.2.2
+streamlit==1.38.0
+scikit-learn==1.5.1
+joblib==1.4.2
